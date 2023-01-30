@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +28,6 @@ require __DIR__.'/auth.php';
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('categories', CategoryController::class)->middleware(['auth', 'verified'])->except('show')->parameters(['category' => 'id']);
+Route::resource('posts', PostController::class)->middleware(['auth', 'verified'])->parameters(['post' => 'id']);
